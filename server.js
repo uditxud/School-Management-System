@@ -10,9 +10,17 @@ dotenv.config();
 const mongoose = require("mongoose");
 
 mongoose.connect(
-    process.env.dbConnect,
+    process.env.dbConnect,{useNewUrlParser: true,
+        useUnifiedTopology: true,},
     () => console.log("connected to db")
 );
+
+//to get and post data in json format
+app.use(express.json());
+
+//import routes
+const studentRoutes = require('./routes/router');
+app.use("/api/students", studentRoutes);
  
 // server run
 app.listen(4000, () => console.log("server running"));
